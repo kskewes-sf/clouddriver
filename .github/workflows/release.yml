@@ -115,8 +115,10 @@ jobs:
           draft: false
           prerelease: ${{ steps.release_info.outputs.IS_CANDIDATE }}
       - name: Pause before dependency bump
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: sleep 900
       - name: Trigger dependency bump workflow
+        if: ${{ github.ref == 'refs/heads/master' }}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.SPINNAKER_GITHUB_TOKEN }}
